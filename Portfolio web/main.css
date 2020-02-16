@@ -130,6 +130,12 @@
     font-size: 30px;
 }
 
-#skills {
+#skills, #contact {
     margin-left: 30px;
+}
+
+.icons-contact{
+    font-size: 70px;
+    font-weight: bold;
+    margin:20px 40px;
 }
