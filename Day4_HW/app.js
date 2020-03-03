@@ -1,36 +1,47 @@
 var http = require('http');
 var formidable = require('formidable');
+
 var fs = require('fs');
 
+// Dùng postman giả lập upload
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 8000;
+// port >= 3000
 
 
-http.createServer(function (req, res) {
-  if (req.url == '/fileupload') {
+const server = http.createServer((req, res) => {
+  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+    // parse a file upload
     var form = new formidable.IncomingForm();
+
     form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = 'C:/Users/Ninoorta/' + files.filetoupload.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
-      });
+      if (files.file.type === 'image/jpeg') {
+        console.log('files: ', files);
+        fs.writeFile(`./uploads${files.file.name}`, files, function (err, data) {
+          if (err) {
+            res.end('Upload fail')
+          } else {
+            res.end('Upload succeeded')
+          }
+        })
+
+      }
+      
     });
-  } else {
-    res.writeHead(200, { 'Content-Type': 'index/html' });
-    res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="filetoupload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
+
+    return;
   }
-}).listen(port, hostname, () => {
+});
+
+
+server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 
 
-/*
-        http://localhost:8080
-*/
+
+// -------------------
+
+
+
+// dùng file .gitignore để bỏ node_modules
