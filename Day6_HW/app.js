@@ -34,10 +34,7 @@ $('document').ready(function () {
             $('button').click(function () {
                 let newColor = getRandomColor()
                 randomNumber++;
-                let red = randomNumber+20;
-                let green = randomNumber+30;
-                let blue = randomNumber+10;
-
+        
                 $('button').css({
                     "background": newColor,
                 })
@@ -50,7 +47,6 @@ $('document').ready(function () {
                         "color": newColor
                     })
 
-                console.log(randomNumber)
             })
 
 
