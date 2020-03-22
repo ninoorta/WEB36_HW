@@ -1,14 +1,47 @@
 * {
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 24px;
     box-sizing: border-box;
 }
 
 .container {
     width: 60%;
     margin: 0 auto;
-    background-color: black; 
-    height: 100vh ;
+    /* background-color: black;  */
+    margin-top: 20px;
+}
+
+
+.clearfix:after{
+    clear: both;
+    content: ".";
+    display: block;
+    width: 0px;
+    height: 0px;
+}
+
+
+.summary-weather{
+    display: flex;
+}
+
+.summary-weather-content{
+    margin: 0 auto;
+
+}
+
+#weather-icon {
+    width: 350px;
+    height: 150px;
+}
+
+#current-temp{
     margin-top: 10px;
+    font-size: 35px;
+    color: orange;
+}
+
+.detail-weather{
+    margin-top: 50px;
 }
