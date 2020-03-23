@@ -17,56 +17,45 @@
     <div class="container">
         <div class="wrapper">
             <div class="summary-weather">
-                
+                <span class="summary-weather-content">
+                    <canvas id="weather-icon"></canvas>
+                    <center>
+                        <p id="current-temp"></p>
+                        <p id="current-weather-description"></p>
+                    </center>
+                </span>
+
+
+            </div>
+            <div class="detail-weather">
+                <center>
+                    <h1 id="location-header"></h1>
+                </center>
+                <div class="location-detail">
+                    <center>
+                        <table id="table-detail-weather">
+                            <tr>
+                                <th>Feels_like</th>
+                                <th>Temp_min</th>
+                                <th>Temp_max</th>
+                                <th>Pressure</th>
+                                <th>Humidity</th>
+                            </tr>
+                            <tr>
+                                <td id="feels_like"></td>
+                                <td id="temp_min"></td>
+                                <td id="temp_max"></td>
+                                <td id="pressure"></td>
+                                <td id="humidity"></td>
+                            </tr>
+                        </table>
+                    </center>
+                </div>
             </div>
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-    <!-- <div id="div1">
-
-    </div>
-    <canvas id="icon1" width="128" height="128"></canvas>
-    <canvas id="clear-day" width="128" height="128"></canvas>
-    <canvas id="icon2" width="128" height="128"></canvas>
-    <canvas id="rain" width="128" height="128"></canvas>
-    <canvas id="wind" width="128" height="128"></canvas> -->
-
 </body>
 <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
 <script src="app.js"></script>
-<!-- <script>
-    var skycons = new Skycons({ "color": "blue" });
-    // on Android, a nasty hack is needed: {"resizeClear": true}
-
-    // you can add a canvas by it's ID...
-    skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
-
-    // ...or by the canvas DOM element itself.
-    // skycons.add(document.getElementById("icon2"), Skycons.RAIN);
-
-    // if you're using the Forecast API, you can also supply
-    // strings: "partly-cloudy-day" or "rain".
-
-    // start animation!
-    skycons.play();
-
-    // you can also halt animation with skycons.pause()
-
-    // want to change the icon? no problem:
-    // skycons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
-
-    // want to remove one altogether? no problem:
-    // skycons.remove("icon2");
-</script> -->
-
 </html>
