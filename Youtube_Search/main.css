@@ -1,0 +1,14 @@
+
+#search{
+    display: flex;
+    justify-content: center;
+}
+
+
+.card a:hover{
+    opacity: 0.25;
+}
+
+.card-text {
+    font-size: 13px;
+}
