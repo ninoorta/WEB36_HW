@@ -1,12 +1,16 @@
+let lastTimeOutID
 
 $('document').ready(function () {
-  $("#search").submit(function (e) {
-    e.preventDefault();
-    // Disable Button Submit
-    $("#btn-submit").attr("disabled","disabled");
-    const userInput = $('#keyword').val();
-    $("#result-list").html('');
-    if(userInput !== ""){
+  $("#keyword").on("input", function(){
+    clearTimeout(lastTimeOutID);
+    search();
+  })
+
+  function search(){
+    lastTimeOutID = setTimeout(() => {
+      console.log("Hello");
+
+      const userInput = $('#keyword').val();
       $.ajax({
         url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${userInput}&type=video&key=AIzaSyBXXzuIkFukaT1UN9hIk_nDubsojh1DAJs`
         , success: function (data) {
@@ -17,27 +21,64 @@ $('document').ready(function () {
           $("#btn-submit").removeAttr("disabled");
         }
       });
-    }
-    
-  });
 
-  // $(window).load(f)
+    $("#result-list").html('');
+    }, 1000);
+
+
+  }
+
+  // $("#search").submit(function (e) {
+  //   e.preventDefault();
+  //   // Disable Button Submit
+  //   $("#btn-submit").attr("disabled", "disabled");
+
+  //   const userInput = $('#keyword').val();
+  //   $("#result-list").html('');
+
+  //   if (userInput !== "") {
+  //    $.ajax({
+  //       url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${userInput}&type=video&key=AIzaSyBXXzuIkFukaT1UN9hIk_nDubsojh1DAJs`
+  //       , success: function (data) {
+  //         console.log(data)
+  //         nextPageToken = data.nextPageToken;
+  //         createNewRowCards(data);
+  //         // Enable Button Submit
+  //         $("#btn-submit").removeAttr("disabled");
+  //       }
+  //     }); 
+  //   }
+
+  // });
+
 
   let isLoadMore = false;
   $(window).on('scroll', function (event) {
     const userInput = $('#keyword').val();
     if ($(document).scrollTop() + 1 >= $(document).height() - $(window).height() && !isLoadMore) {
       console.log("load more");
-      $.ajax({
-        url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${userInput}&type=video&key=AIzaSyBXXzuIkFukaT1UN9hIk_nDubsojh1DAJs&pageToken=${nextPageToken}`
-        , success: function (data) {
-          if(!data.items){
-            alert("Không còn kết quả tìm kiếm.")
+
+      try {
+        $.ajax({
+          url: `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${userInput}&type=video&key=AIzaSyBXXzuIkFukaT1UN9hIk_nDubsojh1DAJs&pageToken=${nextPageToken}`
+          , success: function (data) {
+            if (!data.items) {
+              alert("Không còn kết quả tìm kiếm.");
+            }
+            isLoadMore = false;
+            createNewRowCards(data);
           }
-          isLoadMore = false;
-          createNewRowCards(data);
-        }
-      })
+        })
+      }
+      catch (err) {
+        // if((userInput == "")){
+        //   $("#btn-submit").click(function(){
+        //     alert("Bạn hãy nhập thông tin cần tìm kiếm.");
+        //   })
+        // }
+        console.log(err);
+      }
+
 
     }
   })
@@ -76,9 +117,11 @@ function createNewRowCards(data) {
 
 }
 
-function showLoadingScreen(){
-  $(window).load(function() {
-		// Animate loader off screen
-		$(".se-pre-con").fadeOut("slow");;
-	});
+function showLoadingScreen() {
+  $(window).load(function () {
+    // Animate loader off screen
+    $("#result-list").append(` <i class="fas fa-spinner fa-pulse"></i> `);
+  });
 }
+
+
